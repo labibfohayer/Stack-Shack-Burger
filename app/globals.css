@@ -1,0 +1,164 @@
+@import "https://fonts.googleapis.com/css2?family=Modak&family=Mouse+Memoirs&display=swap";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f5e3cd;
+  --foreground: #1b1b1b;
+  --card: #ffffff;
+  --card-foreground: #1b1b1b;
+  --popover: #ffffff;
+  --popover-foreground: #1b1b1b;
+  --primary: #f91814;
+  --primary-foreground: #ffffff;
+  --secondary: #ffd750;
+  --secondary-foreground: #1b1b1b;
+  --muted: #ead9c4;
+  --muted-foreground: #5c5750;
+  --accent: #f4a804;
+  --accent-foreground: #1b1b1b;
+  --destructive: #b3120f;
+  --destructive-foreground: #ffffff;
+  --border: #1b1b1b33;
+  --input: #ffffff;
+  --ring: #f91814;
+  --radius: clamp(0.75rem, 1vw, 0.9rem);
+  --deep: #f91814;
+  --deep-foreground: #f5e3cd;
+
+  --font-heading: "Mouse Memoirs", "Bebas Neue", Impact, sans-serif;
+  --font-body: "Mouse Memoirs", "Bebas Neue", Impact, sans-serif;
+  --font-display: "Modak", "Mouse Memoirs", Impact, sans-serif;
+
+  --heading-weight: 400;
+  --heading-tracking: 0.015em;
+  --heading-leading: 0.86;
+  --title-stroke: 0.067em;
+  --title-stroke-color: #ffffff;
+
+  --text-display: clamp(6.3rem, 16vw, 14.4rem);
+  --text-h1: clamp(5.85rem, 15vw, 13.5rem);
+  --text-h2: clamp(3.4rem, 9vw, 8.1rem);
+  --text-h3: clamp(1.5rem, 2.8vw, 2.52rem);
+  --text-body-lg: clamp(1.22rem, 1.8vw, 1.62rem);
+  --text-body: clamp(1.125rem, 1.4vw, 1.26rem);
+  --text-small: clamp(0.875rem, 1.05vw, 0.945rem);
+  --text-label: clamp(0.8rem, 0.9vw, 0.81rem);
+  --label-tracking: 0.2em;
+  --label-case: uppercase;
+
+  --gutter: clamp(1rem, 2.5vw, 2.25rem);
+  --max-w: 1280px;
+  --container: min(100% - 2 * clamp(1rem, 2.5vw, 2.25rem), 1280px);
+  --section-space: clamp(3.9rem, 8vw, 7.2rem);
+  --gap: clamp(0.75rem, 1vw, 0.9rem);
+  --grid-columns: 12;
+
+  --radius-card: clamp(0.85rem, 1.2vw, 1.08rem);
+  --radius-button: 9999px;
+  --radius-image: clamp(1.2rem, 2vw, 1.8rem);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur-fast: 0.3s;
+  --dur-base: 0.72s;
+  --dur-slow: 1.4s;
+  --reveal-distance: 2rem;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-primary,
+  .btn-secondary {
+    isolation: isolate;
+    min-height: clamp(3.25rem, 5.7vw, 5.125rem);
+    font-family: var(--font-body);
+    font-size: var(--text-body-lg);
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-radius 0.5s cubic-bezier(0.34, 1.9, 0.64, 1),
+      transform 0.5s cubic-bezier(0.34, 1.9, 0.64, 1),
+      background-color var(--dur-fast) ease,
+      color var(--dur-fast) ease;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.2em clamp(1.5rem, 4vw, 3.6rem) 0.1em;
+    font-weight: 400;
+    line-height: 1;
+    display: inline-flex;
+    position: relative;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: 0 0 0 clamp(2px, 0.25vw, 3.5px) var(--title-stroke-color);
+    border-radius: 52% 48% 55% 45% / 60% 52% 48% 40%;
+  }
+
+  .btn-primary:hover {
+    border-radius: 44% 56% 42% 58% / 48% 62% 38% 52%;
+    transform: scale(1.04);
+  }
+
+  .btn-secondary {
+    color: currentColor;
+    border-radius: var(--radius-button);
+    background: transparent;
+    box-shadow: inset 0 0 0 clamp(1.5px, 0.15vw, 2px) color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  .btn-secondary:hover {
+    background: var(--foreground);
+    color: var(--background);
+    transform: scale(1.05);
+  }
+
+  .kit-card {
+    background: var(--card);
+    color: var(--card-foreground);
+    border-radius: var(--radius-card);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foreground) 10%, transparent);
+  }
+}
+
+.kit-pattern {
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+  position: fixed;
+  inset: 0;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
