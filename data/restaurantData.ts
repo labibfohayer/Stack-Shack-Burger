@@ -112,7 +112,7 @@ export const restaurantData: RestaurantData = {
       { name: "Burgers", href: "/burgers" },
       { name: "Spots", href: "/spots" },
       { name: "Order", href: "/order" },
-      { name: "Contact", href: "#contact" },
+      { name: "Contact", href: "/contact" },
     ],
     cta: {
       text: "Order now",
@@ -251,7 +251,7 @@ export const restaurantData: RestaurantData = {
       { text: "Home", href: "#" },
       { text: "Burgers", href: "/burgers" },
       { text: "Spots", href: "/spots" },
-      { text: "Contact", href: "#contact" },
+      { text: "Contact", href: "/contact" },
     ],
     copyright: "© 2026 Stack Shack, all rights reserved",
     tagline: "Smashed to order in Austin, est. 2017",
