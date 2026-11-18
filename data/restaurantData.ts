@@ -109,7 +109,7 @@ export const restaurantData: RestaurantData = {
     brand: "Stack Shack",
     brandHref: "#",
     navItems: [
-      { name: "Burgers", href: "#menu" },
+      { name: "Burgers", href: "/burgers" },
       { name: "Spots", href: "#locations" },
       { name: "Order", href: "/order" },
       { name: "Contact", href: "#contact" },
@@ -249,7 +249,7 @@ export const restaurantData: RestaurantData = {
     brand: "Stack Shack",
     links: [
       { text: "Home", href: "#" },
-      { text: "Burgers", href: "#menu" },
+      { text: "Burgers", href: "/burgers" },
       { text: "Spots", href: "#locations" },
       { text: "Contact", href: "#contact" },
     ],

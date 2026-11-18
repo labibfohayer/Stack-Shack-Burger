@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import {
   motion,
   useAnimate,
@@ -164,11 +165,8 @@ const JuggleItem: React.FC<JuggleItemProps> = ({ item, index, active }) => {
 const FooterLinkItem: React.FC<{ text: string; href: string }> = ({
   text,
   href,
-}) => (
-  <a
-    href={href}
-    className="group block whitespace-nowrap font-[family-name:var(--font-heading)] text-[length:max(1.5rem,calc(var(--text-h3)*0.75))] leading-[1.05] uppercase"
-  >
+}) => {
+  const content = (
     <div className="relative overflow-hidden">
       <div className="transition-transform duration-300 group-hover:-translate-y-full">
         {text}
@@ -180,8 +178,25 @@ const FooterLinkItem: React.FC<{ text: string; href: string }> = ({
         {text}
       </div>
     </div>
-  </a>
-);
+  );
+
+  const className =
+    "group block whitespace-nowrap font-[family-name:var(--font-heading)] text-[length:max(1.5rem,calc(var(--text-h3)*0.75))] leading-[1.05] uppercase";
+
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={className}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} className={className}>
+      {content}
+    </a>
+  );
+};
 
 export interface FooterJuggleWordmarkProps {
   brand?: string;
