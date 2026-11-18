@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import Media from "./primitives/Media";
 import MaskedLineReveal from "./primitives/MaskedLineReveal";
@@ -72,9 +73,9 @@ export const StatementStickerCta: React.FC<StatementStickerCtaProps> = ({
           )}
 
           {cta && (
-            <a href={cta.href} className="btn-primary mt-[calc(var(--gap)*2.5)]">
+            <Link href={cta.href} className="btn-primary mt-[calc(var(--gap)*2.5)]">
               {cta.text}
-            </a>
+            </Link>
           )}
         </div>
 

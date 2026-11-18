@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Media from "./primitives/Media";
@@ -87,9 +88,9 @@ export const HeroPopTrio: React.FC<HeroPopTrioProps> = ({
         )}
 
         {cta && (
-          <a href={cta.href} className="btn-primary mt-[calc(var(--gap)*2.5)]">
+          <Link href={cta.href} className="btn-primary mt-[calc(var(--gap)*2.5)]">
             {cta.text}
-          </a>
+          </Link>
         )}
       </div>
 

@@ -111,12 +111,12 @@ export const restaurantData: RestaurantData = {
     navItems: [
       { name: "Burgers", href: "#menu" },
       { name: "Spots", href: "#locations" },
-      { name: "Order", href: "#order" },
+      { name: "Order", href: "/order" },
       { name: "Contact", href: "#contact" },
     ],
     cta: {
       text: "Order now",
-      href: "#order",
+      href: "/order",
     },
     menuLabel: "Menu",
     closeLabel: "Close",
@@ -129,7 +129,7 @@ export const restaurantData: RestaurantData = {
       "Two thin patties pressed hard on a hot griddle, American cheese, pickles and Shack sauce on a toasted potato bun. Ready in five minutes.",
     cta: {
       text: "Order now",
-      href: "#order",
+      href: "/order",
     },
     introDelay: 1.1,
     items: [
@@ -237,7 +237,7 @@ export const restaurantData: RestaurantData = {
       "Order ahead and skip the line, or grab a booth and watch your patties hit the griddle. Free fries on your first app order.",
     cta: {
       text: "Order now",
-      href: "#order",
+      href: "/order",
     },
     imageSrc: "/images/vertical-shot-male-s-hand-grabbing-1600.webp",
     imageAlt: "Hand lifting the bun off a burger piled with crispy onions",

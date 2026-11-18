@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import {
   motion,
   AnimatePresence,
@@ -125,12 +126,12 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
           {/* Nav Controls */}
           <div className="relative flex shrink-0 items-center gap-[clamp(0.4rem,0.6vw,0.75rem)]">
             {cta && (
-              <a
+              <Link
                 href={cta.href}
                 className="btn-primary group min-h-0 px-[1.1em] py-[0.3em] text-[length:1.5rem] max-sm:hidden"
               >
                 <TextRoll text={cta.text} />
-              </a>
+              </Link>
             )}
 
             <button
@@ -215,15 +216,46 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
                           delay: 0.14 + idx * 0.06,
                         }}
                       >
-                        <a
-                          href={item.href}
-                          onClick={() => setIsOpen(false)}
-                          className="inline-block origin-left font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,2.4vw,2.4rem)] leading-[1] uppercase transition-transform duration-300 hover:scale-105 [overflow-wrap:anywhere]"
-                        >
-                          {item.name}
-                        </a>
+                        {item.href.startsWith("/") ? (
+                          <Link
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                            className="inline-block origin-left font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,2.4vw,2.4rem)] leading-[1] uppercase transition-transform duration-300 hover:scale-105 [overflow-wrap:anywhere]"
+                          >
+                            {item.name}
+                          </Link>
+                        ) : (
+                          <a
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                            className="inline-block origin-left font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,2.4vw,2.4rem)] leading-[1] uppercase transition-transform duration-300 hover:scale-105 [overflow-wrap:anywhere]"
+                          >
+                            {item.name}
+                          </a>
+                        )}
                       </motion.li>
                     ))}
+
+                    {cta && (
+                      <motion.li
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.38,
+                          ease: [0.165, 0.84, 0.44, 1],
+                          delay: 0.14 + navItems.length * 0.06,
+                        }}
+                        className="mt-3 pt-2 sm:hidden"
+                      >
+                        <Link
+                          href={cta.href}
+                          onClick={() => setIsOpen(false)}
+                          className="btn-primary w-full justify-center text-center text-xl shadow-[0_0_0_2px_#ffffff]"
+                        >
+                          {cta.text}
+                        </Link>
+                      </motion.li>
+                    )}
                   </ul>
 
                   {note && (
