@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MENU_ITEMS,
-  MENU_CATEGORIES,
   MenuItem,
   TAX_RATE,
   DELIVERY_FEE,
@@ -23,7 +23,25 @@ interface SelectedOrderItem {
   quantity: number;
 }
 
+// Helper to resolve URL query item to a valid burger id
+const resolveBurgerId = (rawSlug: string | null): string => {
+  if (!rawSlug) return "the-double";
+  const clean = rawSlug.trim().toLowerCase();
+  const direct = MENU_ITEMS.find((m) => m.id === clean);
+  if (direct) return direct.id;
+  if (clean.includes("double")) return "the-double";
+  if (clean.includes("classic") || clean.includes("single")) return "classic-shack";
+  if (clean.includes("bacon")) return "bacon-griddle";
+  if (clean.includes("jalapeno") || clean.includes("heatwave")) return "jalapeno-heatwave";
+  if (clean.includes("chicken")) return "crispy-chicken-burger";
+  if (clean.includes("triple") || clean.includes("beast")) return "triple-griddle-beast";
+  return "the-double";
+};
+
 export const OrderForm: React.FC = () => {
+  const searchParams = useSearchParams();
+  const queryItem = searchParams.get("item") || searchParams.get("burger");
+
   // Form fields
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,10 +52,21 @@ export const OrderForm: React.FC = () => {
   const [postalCode, setPostalCode] = useState("");
   const [notes, setNotes] = useState("");
 
-  // Order items state (default with "the-double" quantity 1)
+  // Order items state (initialized with query param or default "the-double")
   const [selectedItems, setSelectedItems] = useState<SelectedOrderItem[]>([
-    { itemId: "the-double", quantity: 1 },
+    { itemId: resolveBurgerId(queryItem), quantity: 1 },
   ]);
+
+  // Synchronize when query param changes
+  useEffect(() => {
+    if (queryItem) {
+      const resolved = resolveBurgerId(queryItem);
+      setSelectedItems((prev) => {
+        if (prev.length > 0 && prev[0].itemId === resolved) return prev;
+        return [{ itemId: resolved, quantity: 1 }];
+      });
+    }
+  }, [queryItem]);
 
   // UI status
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -193,13 +222,15 @@ export const OrderForm: React.FC = () => {
             Order Summary
           </h3>
           <ul className="divide-y divide-border/20 pt-2">
-            {successOrder.items.map((it: any, i: number) => (
+            {successOrder.items?.map((it: any, i: number) => (
               <li key={i} className="flex items-center justify-between py-3 text-[length:var(--text-body)]">
                 <div>
                   <span className="font-bold text-primary">{it.quantity}x</span>{" "}
                   <span className="font-medium text-foreground">{it.name}</span>
                 </div>
-                <span className="font-bold text-foreground">${it.total.toFixed(2)}</span>
+                <span className="font-bold text-foreground">
+                  ${(it.total ?? (it.unitPrice ? it.unitPrice * it.quantity : 0)).toFixed(2)}
+                </span>
               </li>
             ))}
           </ul>
@@ -207,19 +238,23 @@ export const OrderForm: React.FC = () => {
           <div className="mt-4 border-t-2 border-border/60 pt-4 space-y-1.5 text-sm">
             <div className="flex justify-between text-muted-foreground">
               <span>Subtotal</span>
-              <span>${successOrder.pricing.subtotal.toFixed(2)}</span>
+              <span>${(successOrder.pricing?.subtotal ?? 0).toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-muted-foreground">
               <span>Delivery Fee</span>
-              <span>{successOrder.pricing.delivery === 0 ? "FREE" : `$${successOrder.pricing.delivery.toFixed(2)}`}</span>
+              <span>
+                {successOrder.pricing?.delivery === 0
+                  ? "FREE"
+                  : `$${(successOrder.pricing?.delivery ?? DELIVERY_FEE).toFixed(2)}`}
+              </span>
             </div>
             <div className="flex justify-between text-muted-foreground">
               <span>Sales Tax (8.25%)</span>
-              <span>${successOrder.pricing.tax.toFixed(2)}</span>
+              <span>${(successOrder.pricing?.tax ?? 0).toFixed(2)}</span>
             </div>
             <div className="flex justify-between pt-2 border-t border-border/40 text-xl font-bold text-primary">
               <span>Total Paid</span>
-              <span>${successOrder.pricing.total.toFixed(2)}</span>
+              <span>${(successOrder.pricing?.total ?? total).toFixed(2)}</span>
             </div>
           </div>
 
@@ -263,7 +298,7 @@ export const OrderForm: React.FC = () => {
           PLACE YOUR ORDER
         </motion.h1>
         <p className="mx-auto mt-4 max-w-xl text-[length:var(--text-body-lg)] text-foreground">
-          Fill in your details below and choose your favorites. We will fire up the griddle and have it delivered smoking hot!
+          Fill in your details below and choose your favorite burgers. We will fire up the griddle and have it delivered smoking hot!
         </p>
       </div>
 
@@ -452,10 +487,10 @@ export const OrderForm: React.FC = () => {
           <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/90 p-[clamp(1.25rem,2.5vw,2rem)] shadow-lg backdrop-blur-sm">
             <div className="flex items-center justify-between pb-4 border-b border-border/40">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl uppercase tracking-wider text-primary">
-                2. Select Your Food
+                2. Select Your Burgers
               </h2>
               <span className="text-sm font-bold text-muted-foreground">
-                {selectedItems.length} item(s) selected
+                {selectedItems.length} burger(s) selected
               </span>
             </div>
 
@@ -476,29 +511,21 @@ export const OrderForm: React.FC = () => {
                       transition={{ duration: 0.25 }}
                       className="flex flex-col gap-3 rounded-2xl border border-border/30 bg-background/50 p-4 sm:flex-row sm:items-center sm:justify-between"
                     >
-                      {/* Custom Category Dropdown */}
+                      {/* Clean Flat Burger Dropdown */}
                       <div className="flex-1">
                         <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">
-                          Item #{index + 1}
+                          Burger #{index + 1}
                         </label>
                         <select
                           value={item.itemId}
                           onChange={(e) => handleItemChange(index, e.target.value)}
                           className="w-full cursor-pointer rounded-full border border-border/50 bg-white px-4 py-2.5 text-base font-bold text-foreground shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                         >
-                          {MENU_CATEGORIES.map((category) => {
-                            const catItems = MENU_ITEMS.filter((m) => m.category === category);
-                            if (catItems.length === 0) return null;
-                            return (
-                              <optgroup key={category} label={`--- ${category.toUpperCase()} ---`}>
-                                {catItems.map((m) => (
-                                  <option key={m.id} value={m.id}>
-                                    {m.name} — ${m.price.toFixed(2)}
-                                  </option>
-                                ))}
-                              </optgroup>
-                            );
-                          })}
+                          {MENU_ITEMS.map((m) => (
+                            <option key={m.id} value={m.id} className="py-2 text-foreground font-medium">
+                              {m.name} — ${m.price.toFixed(2)}
+                            </option>
+                          ))}
                         </select>
                         {currentItem && (
                           <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">
@@ -562,7 +589,7 @@ export const OrderForm: React.FC = () => {
                 onClick={handleAddItem}
                 className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-dashed border-primary/50 bg-primary/5 px-6 py-2.5 text-base font-bold uppercase tracking-wider text-primary transition-colors hover:bg-primary/10"
               >
-                <span>＋ Add Another Item</span>
+                <span>＋ Add Another Burger</span>
               </button>
             </div>
           </div>

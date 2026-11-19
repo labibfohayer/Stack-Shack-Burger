@@ -127,9 +127,9 @@ export const SpotsList: React.FC = () => {
                     <span>GET DIRECTIONS ↗</span>
                   </a>
 
-                  {/* ORDER NOW: Internal Link to /order (same tab) */}
+                  {/* ORDER NOW: Internal Link to /burgers (same tab) */}
                   <Link
-                    href="/order"
+                    href="/burgers"
                     className="btn-primary group min-h-0 px-7 py-2.5 text-base font-bold shadow-[0_0_0_2px_#ffffff]"
                   >
                     <TextRoll text="ORDER NOW" />
@@ -151,7 +151,7 @@ export const SpotsList: React.FC = () => {
         </p>
         <div className="mt-6">
           <Link
-            href="/order"
+            href="/burgers"
             className="btn-secondary inline-flex px-8 py-3 text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
           >
             ORDER ONLINE NOW

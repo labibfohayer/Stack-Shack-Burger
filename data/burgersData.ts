@@ -23,7 +23,7 @@ export type BurgerCategory = (typeof BURGER_CATEGORIES)[number];
 export const BURGERS_DATA: BurgerItem[] = [
   // ================= CLASSICS =================
   {
-    id: "the-double-smashed",
+    id: "the-double",
     name: "The Double Smashed",
     category: "Classics",
     price: 9.5,
@@ -34,8 +34,8 @@ export const BURGERS_DATA: BurgerItem[] = [
     orderId: "the-double",
   },
   {
-    id: "classic-single-smashed",
-    name: "Classic Single Smashed",
+    id: "classic-shack",
+    name: "Classic Shack Burger",
     category: "Classics",
     price: 7.5,
     description: "Single smashed Texas beef patty, melted American cheese, crisp lettuce, vine-ripe tomato & house Shack sauce.",
@@ -45,7 +45,7 @@ export const BURGERS_DATA: BurgerItem[] = [
     orderId: "classic-shack",
   },
   {
-    id: "bacon-griddle-smashed",
+    id: "bacon-griddle",
     name: "Bacon Griddle Smashed",
     category: "Classics",
     price: 11.0,
@@ -79,8 +79,8 @@ export const BURGERS_DATA: BurgerItem[] = [
 
   // ================= CHICKEN =================
   {
-    id: "crispy-chicken-shack",
-    name: "Crispy Chicken Shack",
+    id: "crispy-chicken-burger",
+    name: "Crispy Chicken Shack Burger",
     category: "Chicken",
     price: 9.0,
     description: "Golden fried buttermilk chicken breast, spicy house slaw, dill pickles & garlic herb aioli on a toasted potato bun.",
@@ -142,7 +142,7 @@ export const BURGERS_DATA: BurgerItem[] = [
     tags: ["Chef Special", "Sweet & Savory"],
   },
   {
-    id: "jalapeno-heatwave-burger",
+    id: "jalapeno-heatwave",
     name: "Jalapeño Heatwave Burger",
     category: "Specials",
     price: 10.5,

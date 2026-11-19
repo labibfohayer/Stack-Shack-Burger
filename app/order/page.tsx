@@ -30,7 +30,15 @@ export default function OrderPage() {
 
       {/* Main Order Content Section */}
       <div className="relative z-10 pt-[clamp(6rem,12vw,9rem)] pb-[var(--section-space)]">
-        <OrderForm />
+        <React.Suspense
+          fallback={
+            <div className="mx-auto w-[var(--container)] max-w-xl rounded-2xl border-2 border-white bg-card/90 p-8 text-center font-bold text-primary shadow-lg">
+              Loading Shack Order Form...
+            </div>
+          }
+        >
+          <OrderForm />
+        </React.Suspense>
       </div>
 
       {/* Reusable Footer Section */}
