@@ -52,7 +52,7 @@ export const BurgersList: React.FC = () => {
           Showing <span className="font-bold text-primary">{filteredBurgers.length}</span> Smashed Burgers
         </p>
         <span className="text-sm font-bold uppercase text-accent-foreground">
-          Smashed To Order • Austin, TX
+          SMASHED TO ORDER ON THE GRILL, EST. 2024
         </span>
       </div>
 
