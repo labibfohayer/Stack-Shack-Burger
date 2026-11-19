@@ -25,7 +25,7 @@ export const BurgersList: React.FC = () => {
   return (
     <div className="mx-auto w-[var(--container)]">
       {/* Category Filter Pills */}
-      <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
+      <div className="mb-8 sm:mb-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
         {BURGER_CATEGORIES.map((category) => {
           const isSelected = selectedCategory === category;
           return (
@@ -34,7 +34,7 @@ export const BurgersList: React.FC = () => {
               type="button"
               onClick={() => setSelectedCategory(category)}
               className={cn(
-                "rounded-full px-5 py-2 text-base font-bold uppercase tracking-wider transition-all duration-300",
+                "rounded-full px-4 py-1.5 sm:px-5 sm:py-2 text-sm sm:text-base font-bold uppercase tracking-wider transition-all duration-300",
                 isSelected
                   ? "bg-primary text-primary-foreground shadow-[0_0_0_2px_#ffffff] scale-105"
                   : "bg-white/80 text-foreground hover:bg-white hover:text-primary shadow-sm"
@@ -47,11 +47,11 @@ export const BurgersList: React.FC = () => {
       </div>
 
       {/* Burgers Count Subtitle */}
-      <div className="mb-8 flex items-center justify-between border-b border-border/40 pb-3">
-        <p className="font-[family-name:var(--font-heading)] text-2xl uppercase tracking-wider text-muted-foreground">
+      <div className="mb-8 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-border/40 pb-3">
+        <p className="font-[family-name:var(--font-heading)] text-xl sm:text-2xl uppercase tracking-wider text-muted-foreground">
           Showing <span className="font-bold text-primary">{filteredBurgers.length}</span> Smashed Burgers
         </p>
-        <span className="text-sm font-bold uppercase text-accent-foreground">
+        <span className="text-xs sm:text-sm font-bold uppercase text-accent-foreground">
           SMASHED TO ORDER ON THE GRILL, EST. 2024
         </span>
       </div>
@@ -151,17 +151,17 @@ export const BurgersList: React.FC = () => {
       </div>
 
       {/* Fun Bottom Banner */}
-      <div className="mt-16 rounded-[var(--radius-card)] border-2 border-white bg-primary p-8 text-center text-primary-foreground shadow-xl">
-        <p className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-wider">
+      <div className="mt-12 sm:mt-16 rounded-[var(--radius-card)] border-2 border-white bg-primary p-6 sm:p-8 text-center text-primary-foreground shadow-xl">
+        <p className="font-[family-name:var(--font-display)] text-xl sm:text-2xl uppercase tracking-wider">
           Can't decide which burger to get?
         </p>
-        <p className="mx-auto mt-2 max-w-xl text-base opacity-90">
+        <p className="mx-auto mt-2 max-w-xl text-sm sm:text-base opacity-90">
           Try "The Double Smashed" — our legendary recipe with double thin patties pressed hard on a hot griddle, pickles & secret Shack sauce!
         </p>
-        <div className="mt-6">
+        <div className="mt-5 sm:mt-6">
           <Link
             href="/order?item=the-double"
-            className="btn-secondary inline-flex px-8 py-3 text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
+            className="btn-secondary inline-flex px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
           >
             ORDER YOUR STACK NOW
           </Link>

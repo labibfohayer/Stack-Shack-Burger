@@ -15,7 +15,7 @@ import { MediaItem } from "@/data/restaurantData";
 
 const LAYER_CONFIGS = [
   {
-    place: "left-[5vw] top-[5vw] w-[24vw] max-md:left-0 max-md:top-0 max-md:w-[30vw] z-40",
+    place: "left-[5vw] top-[5vw] w-[24vw] max-md:left-0 max-md:top-0 max-md:w-[30vw] z-10",
     factor: -0.06,
   },
   {
@@ -23,11 +23,11 @@ const LAYER_CONFIGS = [
     factor: -0.07,
   },
   {
-    place: "left-[4vw] top-[37vw] w-[23vw] max-md:left-0 max-md:top-[55%] max-md:w-[28vw] z-20",
+    place: "left-[4vw] top-[37vw] w-[23vw] max-md:left-0 max-md:top-[55%] max-md:w-[28vw] z-10",
     factor: -0.05,
   },
   {
-    place: "right-[6vw] bottom-[-4vw] w-[20vw] max-md:right-0 max-md:bottom-0 max-md:w-[26vw] z-30",
+    place: "right-[6vw] bottom-[-4vw] w-[20vw] max-md:right-0 max-md:bottom-0 max-md:w-[26vw] z-10",
     factor: -0.09,
   },
 ];
@@ -137,7 +137,7 @@ export const StatementCutoutLayers: React.FC<StatementCutoutLayersProps> = ({
                 "--fit": `${(100 / (maxLineLen * 0.56)).toFixed(2)}cqw`,
               } as React.CSSProperties
             }
-            className="relative z-[15] mx-auto w-full max-w-[60vw] [container-type:inline-size] max-md:max-w-full"
+            className="relative z-[30] mx-auto w-full max-w-[60vw] [container-type:inline-size] max-md:max-w-full"
           >
             <MaskedLineReveal
               text={titleLines.join(" ")}

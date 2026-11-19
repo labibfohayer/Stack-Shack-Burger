@@ -26,7 +26,7 @@ export const SpotsList: React.FC = () => {
               ease: [0.165, 0.84, 0.44, 1],
               delay: idx * 0.1,
             }}
-            className="group relative overflow-hidden rounded-[var(--radius-card)] border-2 border-white bg-card/95 p-[clamp(1.5rem,3.5vw,3rem)] shadow-xl backdrop-blur-sm"
+            className="group relative overflow-hidden rounded-[var(--radius-card)] border-2 border-white bg-card/95 p-5 sm:p-[clamp(1.5rem,3.5vw,3rem)] shadow-xl backdrop-blur-sm"
           >
             <div
               className={cn(
@@ -116,13 +116,13 @@ export const SpotsList: React.FC = () => {
                 </div>
 
                 {/* Action Buttons: Get Directions & Order Now */}
-                <div className="pt-2 flex flex-wrap items-center gap-4">
+                <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
                   {/* GET DIRECTIONS: External Search Link to Google Maps (new tab) */}
                   <a
                     href={spot.mapLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-secondary group min-h-0 px-6 py-2.5 text-base font-bold shadow-[0_0_0_2px_#ffffff]"
+                    className="btn-secondary group min-h-0 w-full sm:w-auto text-center justify-center px-6 py-2.5 text-base font-bold shadow-[0_0_0_2px_#ffffff]"
                   >
                     <span>GET DIRECTIONS ↗</span>
                   </a>
@@ -130,7 +130,7 @@ export const SpotsList: React.FC = () => {
                   {/* ORDER NOW: Internal Link to /burgers (same tab) */}
                   <Link
                     href="/burgers"
-                    className="btn-primary group min-h-0 px-7 py-2.5 text-base font-bold shadow-[0_0_0_2px_#ffffff]"
+                    className="btn-primary group min-h-0 w-full sm:w-auto text-center justify-center px-7 py-2.5 text-base font-bold shadow-[0_0_0_2px_#ffffff]"
                   >
                     <TextRoll text="ORDER NOW" />
                   </Link>
@@ -142,7 +142,7 @@ export const SpotsList: React.FC = () => {
       })}
 
       {/* Fun Bottom Callout Box */}
-      <div className="mt-16 rounded-[var(--radius-card)] border-2 border-white bg-primary p-8 text-center text-primary-foreground shadow-xl">
+      <div className="mt-12 sm:mt-16 rounded-[var(--radius-card)] border-2 border-white bg-primary p-6 sm:p-8 text-center text-primary-foreground shadow-xl">
         <p className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-wider">
           More Dhaka Spots Sizzling Soon!
         </p>

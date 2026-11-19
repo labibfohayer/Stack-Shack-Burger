@@ -312,7 +312,7 @@ export const OrderForm: React.FC = () => {
         {/* LEFT COLUMN: Customer Information & Item Selection (7 cols) */}
         <div className="space-y-8 lg:col-span-7">
           {/* Section: Customer Details */}
-          <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/90 p-[clamp(1.25rem,2.5vw,2rem)] shadow-lg backdrop-blur-sm">
+          <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/90 p-5 sm:p-[clamp(1.25rem,2.5vw,2rem)] shadow-lg backdrop-blur-sm">
             <h2 className="mb-4 font-[family-name:var(--font-heading)] text-3xl uppercase tracking-wider text-primary">
               1. Customer Information
             </h2>
@@ -484,7 +484,7 @@ export const OrderForm: React.FC = () => {
           </div>
 
           {/* Section: Food Item Selection */}
-          <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/90 p-[clamp(1.25rem,2.5vw,2rem)] shadow-lg backdrop-blur-sm">
+          <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/90 p-5 sm:p-[clamp(1.25rem,2.5vw,2rem)] shadow-lg backdrop-blur-sm">
             <div className="flex items-center justify-between pb-4 border-b border-border/40">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl uppercase tracking-wider text-primary">
                 2. Select Your Burgers
@@ -598,7 +598,7 @@ export const OrderForm: React.FC = () => {
         {/* RIGHT COLUMN: Live Order Summary Card (5 cols) */}
         <div className="lg:col-span-5">
           <div className="sticky top-28 space-y-6">
-            <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/95 p-[clamp(1.5rem,3vw,2.5rem)] shadow-xl backdrop-blur-md">
+            <div className="rounded-[var(--radius-card)] border-2 border-white bg-card/95 p-5 sm:p-[clamp(1.5rem,3vw,2.5rem)] shadow-xl backdrop-blur-md">
               <div className="flex items-center justify-between border-b border-border/40 pb-4">
                 <h3 className="font-[family-name:var(--font-heading)] text-3xl uppercase tracking-wider text-primary">
                   Order Summary

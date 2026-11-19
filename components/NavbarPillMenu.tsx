@@ -135,7 +135,7 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
           <Link
             href={brandHref || "/"}
             onClick={(e) => handleNavClick(brandHref || "/", e)}
-            className="min-w-0 whitespace-nowrap px-[0.1em] py-[0.05em] font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(2.25rem,4vw,3.75rem)] leading-[1] uppercase text-primary transition-transform duration-300 hover:scale-105 [-webkit-text-stroke:calc(var(--title-stroke,0em)*2.4)_var(--title-stroke-color,transparent)] [paint-order:stroke_fill]"
+            className="min-w-0 whitespace-nowrap px-[0.1em] py-[0.05em] font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,4.5vw,3.75rem)] leading-[1] uppercase text-primary transition-transform duration-300 hover:scale-105 [-webkit-text-stroke:calc(var(--title-stroke,0em)*2.4)_var(--title-stroke-color,transparent)] [paint-order:stroke_fill]"
           >
             {brand}
           </Link>
@@ -217,7 +217,7 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
                     ease: backEase(2.5),
                     opacity: { duration: 0.2 },
                   }}
-                  className="absolute right-0 top-[calc(100%+0.75rem)] w-[clamp(15rem,18vw,21rem)] origin-top-right rounded-[var(--radius-card)] bg-primary p-[clamp(1.25rem,2vw,2rem)] text-primary-foreground shadow-[0_1vw_3vw_color-mix(in_srgb,var(--foreground)_25%,transparent)]"
+                  className="absolute right-0 top-[calc(100%+0.75rem)] w-[clamp(15rem,18vw,21rem)] max-w-[calc(100vw-2rem)] origin-top-right rounded-[var(--radius-card)] bg-primary p-[clamp(1.25rem,2vw,2rem)] text-primary-foreground shadow-[0_1vw_3vw_color-mix(in_srgb,var(--foreground)_25%,transparent)]"
                 >
                   <ul className="flex flex-col gap-[0.3em]">
                     {navItems.map((item, idx) => (

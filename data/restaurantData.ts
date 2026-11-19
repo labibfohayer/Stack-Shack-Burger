@@ -121,7 +121,7 @@ export const restaurantData: RestaurantData = {
     },
     menuLabel: "Menu",
     closeLabel: "Close",
-    note: "Smash burgers in Austin, Texas since 2017",
+    note: "SMASHED TO ORDER ON THE GRILL, EST. 2024",
   },
   hero: {
     label: "The double",

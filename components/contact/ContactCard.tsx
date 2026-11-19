@@ -201,12 +201,12 @@ export const ContactCard: React.FC = () => {
           )}
 
           {/* Action Buttons: COPY EMAIL on the left, EMAIL US on the right */}
-          <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             {/* COPY EMAIL BUTTON (On the left as requested) */}
             <button
               type="button"
               onClick={handleCopy}
-              className="btn-secondary group min-h-0 px-7 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff] transition-all"
+              className="btn-secondary group min-h-0 w-full sm:w-auto text-center justify-center px-7 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff] transition-all"
               aria-label="Copy email address to clipboard"
               data-testid="copy-email-btn"
             >
@@ -216,7 +216,7 @@ export const ContactCard: React.FC = () => {
             {/* EMAIL US BUTTON (Primary Submit CTA) */}
             <button
               type="submit"
-              className="btn-primary group min-h-0 px-8 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
+              className="btn-primary group min-h-0 w-full sm:w-auto text-center justify-center px-8 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
               data-testid="email-us-btn"
             >
               <TextRoll text={contactData.emailButtonText} />

@@ -274,10 +274,10 @@ export const FooterJuggleWordmark: React.FC<FooterJuggleWordmarkProps> = ({
     >
       <div className="relative z-20 mx-auto w-[var(--container)]">
         {/* Navigation and Copyright */}
-        <div className="flex flex-wrap items-end justify-between gap-x-[calc(var(--gap)*3)] gap-y-[var(--gap)]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-x-[calc(var(--gap)*3)] gap-y-[var(--gap)]">
           <nav
             aria-label="Footer"
-            className="flex flex-wrap gap-x-[calc(var(--gap)*2)] gap-y-[0.4em]"
+            className="flex flex-wrap gap-x-4 sm:gap-x-[calc(var(--gap)*2)] gap-y-[0.4em]"
           >
             {links.map((link, idx) => (
               <FooterLinkItem key={idx} text={link.text} href={link.href} />
@@ -285,7 +285,7 @@ export const FooterJuggleWordmark: React.FC<FooterJuggleWordmarkProps> = ({
           </nav>
 
           {copyright && (
-            <p className="font-[family-name:var(--font-heading)] text-[length:max(1.5rem,calc(var(--text-h3)*0.75))] leading-[1.05] uppercase text-muted-foreground">
+            <p className="font-[family-name:var(--font-heading)] text-[length:max(1.3rem,calc(var(--text-h3)*0.75))] leading-[1.05] uppercase text-muted-foreground">
               {copyright}
             </p>
           )}
@@ -308,7 +308,7 @@ export const FooterJuggleWordmark: React.FC<FooterJuggleWordmarkProps> = ({
       </div>
 
       {/* Floating Circles in Background */}
-      <div className="pointer-events-none absolute inset-0 z-[15]">
+      <div className="pointer-events-none absolute inset-0 z-[15] hidden sm:block">
         {items.slice(0, JUGGLE_SLOTS.length).map((item, idx) => (
           <JuggleItem
             key={idx}
