@@ -14,6 +14,14 @@ export interface ContactData {
   copyButtonText: string;
   copiedText: string;
   extraNote: string;
+  form: {
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+  };
 }
 
 export const contactData: ContactData = {
@@ -31,4 +39,12 @@ export const contactData: ContactData = {
   copyButtonText: "COPY EMAIL",
   copiedText: "COPIED TO CLIPBOARD!",
   extraNote: "We check our inbox every day and reply within 24 hours.",
+  form: {
+    nameLabel: "Your Name",
+    namePlaceholder: "e.g. Alex Johnson",
+    emailLabel: "Your Email",
+    emailPlaceholder: "alex@example.com",
+    messageLabel: "What would you like to tell us?",
+    messagePlaceholder: "Write your message here... feedback, catering inquiry, or burger love!",
+  },
 };

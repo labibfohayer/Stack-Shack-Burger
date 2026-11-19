@@ -4,9 +4,16 @@ import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { contactData } from "@/data/contactData";
 import TextRoll from "@/components/primitives/TextRoll";
+import { cn } from "@/lib/utils";
 
 export const ContactCard: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+
   const shouldReduceMotion = useReducedMotion();
 
   const handleCopy = async () => {
@@ -26,6 +33,36 @@ export const ContactCard: React.FC = () => {
     } catch (err) {
       console.error("Failed to copy email:", err);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newErrors: { name?: string; email?: string; message?: string } = {};
+    if (!name.trim()) newErrors.name = "Please enter your name.";
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!message.trim()) newErrors.message = "Please write your message.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
+    // Construct pre-filled mailto URL
+    const subject = encodeURIComponent(`Message from ${name.trim()} via Stack Shack Website`);
+    const body = encodeURIComponent(
+      `Hello Stack Shack Team,\n\n${message.trim()}\n\n---\nSender Name: ${name.trim()}\nReply-To Email: ${email.trim()}`
+    );
+    const mailtoUrl = `mailto:${contactData.demoEmail}?subject=${subject}&body=${body}`;
+
+    setStatusMessage("Opening your email client with your message...");
+    setTimeout(() => {
+      window.location.href = mailtoUrl;
+    }, 200);
   };
 
   return (
@@ -53,12 +90,12 @@ export const ContactCard: React.FC = () => {
           {contactData.cardDescription}
         </p>
 
-        {/* Highlighted Email Box */}
-        <div className="my-8">
+        {/* Direct Clickable Email Box */}
+        <div className="my-6">
           <a
             href={`mailto:${contactData.demoEmail}`}
             data-testid="contact-email-link"
-            className="group relative inline-flex max-w-full items-center justify-center gap-2 sm:gap-3 rounded-2xl border-2 border-white bg-background/80 px-4 sm:px-6 py-3 sm:py-4 shadow-[0_4px_16px_color-mix(in_srgb,var(--foreground)_6%,transparent)] transition-all duration-300 hover:scale-[1.02] hover:bg-background"
+            className="group relative inline-flex max-w-full items-center justify-center gap-2 sm:gap-3 rounded-2xl border-2 border-white bg-background/80 px-4 sm:px-6 py-2.5 sm:py-3.5 shadow-[0_4px_16px_color-mix(in_srgb,var(--foreground)_6%,transparent)] transition-all duration-300 hover:scale-[1.02] hover:bg-background"
             aria-label={`Send email to ${contactData.demoEmail}`}
           >
             <span className="text-xl sm:text-2xl" aria-hidden="true">
@@ -70,28 +107,122 @@ export const ContactCard: React.FC = () => {
           </a>
         </div>
 
-        {/* Action Buttons: Email Us & Copy Email */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          {/* EMAIL US (mailto link) */}
-          <a
-            href={`mailto:${contactData.demoEmail}`}
-            className="btn-primary group min-h-0 px-8 py-3 text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
-            data-testid="email-us-btn"
-          >
-            <TextRoll text={contactData.emailButtonText} />
-          </a>
+        {/* Contact Input Form */}
+        <form onSubmit={handleSubmit} className="mt-8 space-y-5 text-left" noValidate>
+          {/* Inputs Grid: Name & Email */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {/* Name Box */}
+            <div>
+              <label
+                htmlFor="contact-name"
+                className="mb-1.5 block font-[family-name:var(--font-heading)] text-base font-bold uppercase tracking-wider text-foreground"
+              >
+                {contactData.form.nameLabel} <span className="text-primary">*</span>
+              </label>
+              <input
+                id="contact-name"
+                type="text"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                }}
+                placeholder={contactData.form.namePlaceholder}
+                className={cn(
+                  "w-full rounded-2xl border bg-white px-5 py-3.5 text-base text-foreground shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40",
+                  errors.name ? "border-destructive bg-destructive/5" : "border-border/40"
+                )}
+              />
+              {errors.name && (
+                <p className="mt-1 text-xs font-semibold text-destructive">{errors.name}</p>
+              )}
+            </div>
 
-          {/* COPY EMAIL BUTTON */}
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="btn-secondary group min-h-0 px-8 py-3 text-lg font-bold shadow-[0_0_0_2px_#ffffff] transition-all"
-            aria-label="Copy email address to clipboard"
-            data-testid="copy-email-btn"
-          >
-            <span>{copied ? contactData.copiedText : contactData.copyButtonText}</span>
-          </button>
-        </div>
+            {/* Email Box */}
+            <div>
+              <label
+                htmlFor="contact-email"
+                className="mb-1.5 block font-[family-name:var(--font-heading)] text-base font-bold uppercase tracking-wider text-foreground"
+              >
+                {contactData.form.emailLabel} <span className="text-primary">*</span>
+              </label>
+              <input
+                id="contact-email"
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+                }}
+                placeholder={contactData.form.emailPlaceholder}
+                className={cn(
+                  "w-full rounded-2xl border bg-white px-5 py-3.5 text-base text-foreground shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40",
+                  errors.email ? "border-destructive bg-destructive/5" : "border-border/40"
+                )}
+              />
+              {errors.email && (
+                <p className="mt-1 text-xs font-semibold text-destructive">{errors.email}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Message Box */}
+          <div>
+            <label
+              htmlFor="contact-message"
+              className="mb-1.5 block font-[family-name:var(--font-heading)] text-base font-bold uppercase tracking-wider text-foreground"
+            >
+              {contactData.form.messageLabel} <span className="text-primary">*</span>
+            </label>
+            <textarea
+              id="contact-message"
+              rows={4}
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+                if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }));
+              }}
+              placeholder={contactData.form.messagePlaceholder}
+              className={cn(
+                "w-full resize-none rounded-2xl border bg-white px-5 py-3.5 text-base text-foreground shadow-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40",
+                errors.message ? "border-destructive bg-destructive/5" : "border-border/40"
+              )}
+            />
+            {errors.message && (
+              <p className="mt-1 text-xs font-semibold text-destructive">{errors.message}</p>
+            )}
+          </div>
+
+          {/* Feedback Status */}
+          {statusMessage && (
+            <div data-testid="contact-status-message" className="rounded-xl border border-primary/20 bg-primary/10 p-3 text-center text-sm font-bold text-primary">
+              {statusMessage}
+            </div>
+          )}
+
+          {/* Action Buttons: COPY EMAIL on the left, EMAIL US on the right */}
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+            {/* COPY EMAIL BUTTON (On the left as requested) */}
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="btn-secondary group min-h-0 px-7 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff] transition-all"
+              aria-label="Copy email address to clipboard"
+              data-testid="copy-email-btn"
+            >
+              <span>{copied ? contactData.copiedText : contactData.copyButtonText}</span>
+            </button>
+
+            {/* EMAIL US BUTTON (Primary Submit CTA) */}
+            <button
+              type="submit"
+              className="btn-primary group min-h-0 px-8 py-3 text-base sm:text-lg font-bold shadow-[0_0_0_2px_#ffffff]"
+              data-testid="email-us-btn"
+            >
+              <TextRoll text={contactData.emailButtonText} />
+            </button>
+          </div>
+        </form>
 
         {/* Extra Note / Response Time */}
         <p className="mt-8 text-xs font-medium uppercase tracking-wider text-muted-foreground">
