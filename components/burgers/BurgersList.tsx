@@ -95,7 +95,7 @@ export const BurgersList: React.FC = () => {
 
                     {/* Price Badge */}
                     <div className="absolute bottom-2 right-2 rounded-full bg-primary px-3.5 py-1 font-[family-name:var(--font-heading)] text-xl font-bold uppercase text-primary-foreground shadow-[0_0_0_2px_#ffffff]">
-                      ${burger.price.toFixed(2)}
+                      ৳{burger.price}
                     </div>
                   </div>
 
@@ -134,7 +134,7 @@ export const BurgersList: React.FC = () => {
                 {/* Bottom CTA Button */}
                 <div className="mt-6 border-t border-border/20 pt-4 flex items-center justify-between">
                   <span className="font-[family-name:var(--font-heading)] text-2xl font-bold text-foreground">
-                    ${burger.price.toFixed(2)}
+                    ৳{burger.price}
                   </span>
 
                   <Link

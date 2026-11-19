@@ -51,16 +51,16 @@ export async function onRequestPost(context: { request: Request }) {
         category: menuItem ? menuItem.category : "Fast Food",
         unitPrice,
         quantity: item.quantity,
-        total: Math.round(itemTotal * 100) / 100,
+        total: Math.round(itemTotal),
       };
     });
 
     const subtotal = Math.round(
-      populatedItems.reduce((acc, curr) => acc + curr.total, 0) * 100
-    ) / 100;
+      populatedItems.reduce((acc, curr) => acc + curr.total, 0)
+    );
     const delivery = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
-    const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
-    const total = Math.round((subtotal + delivery + tax) * 100) / 100;
+    const tax = Math.round(subtotal * TAX_RATE);
+    const total = Math.round(subtotal + delivery + tax);
 
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const orderId = `SHACK-${new Date().getFullYear()}-${randomSuffix}`;
@@ -88,7 +88,7 @@ export async function onRequestPost(context: { request: Request }) {
         delivery,
         tax,
         total,
-        currency: "USD",
+        currency: "BDT",
       },
       estimatedDeliveryMinutes: "25-35",
     };

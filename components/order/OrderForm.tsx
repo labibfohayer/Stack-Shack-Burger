@@ -229,7 +229,7 @@ export const OrderForm: React.FC = () => {
                   <span className="font-medium text-foreground">{it.name}</span>
                 </div>
                 <span className="font-bold text-foreground">
-                  ${(it.total ?? (it.unitPrice ? it.unitPrice * it.quantity : 0)).toFixed(2)}
+                  ৳{(it.total ?? (it.unitPrice ? it.unitPrice * it.quantity : 0)).toLocaleString()}
                 </span>
               </li>
             ))}
@@ -238,23 +238,23 @@ export const OrderForm: React.FC = () => {
           <div className="mt-4 border-t-2 border-border/60 pt-4 space-y-1.5 text-sm">
             <div className="flex justify-between text-muted-foreground">
               <span>Subtotal</span>
-              <span>${(successOrder.pricing?.subtotal ?? 0).toFixed(2)}</span>
+              <span>৳{(successOrder.pricing?.subtotal ?? 0).toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-muted-foreground">
               <span>Delivery Fee</span>
               <span>
                 {successOrder.pricing?.delivery === 0
                   ? "FREE"
-                  : `$${(successOrder.pricing?.delivery ?? DELIVERY_FEE).toFixed(2)}`}
+                  : `৳${(successOrder.pricing?.delivery ?? DELIVERY_FEE).toLocaleString()}`}
               </span>
             </div>
             <div className="flex justify-between text-muted-foreground">
-              <span>Sales Tax (8.25%)</span>
-              <span>${(successOrder.pricing?.tax ?? 0).toFixed(2)}</span>
+              <span>VAT / Tax (5%)</span>
+              <span>৳{(successOrder.pricing?.tax ?? 0).toLocaleString()}</span>
             </div>
             <div className="flex justify-between pt-2 border-t border-border/40 text-xl font-bold text-primary">
               <span>Total Paid</span>
-              <span>${(successOrder.pricing?.total ?? total).toFixed(2)}</span>
+              <span>৳{(successOrder.pricing?.total ?? total).toLocaleString()}</span>
             </div>
           </div>
 
@@ -523,7 +523,7 @@ export const OrderForm: React.FC = () => {
                         >
                           {MENU_ITEMS.map((m) => (
                             <option key={m.id} value={m.id} className="py-2 text-foreground font-medium">
-                              {m.name} — ${m.price.toFixed(2)}
+                              {m.name} — ৳{m.price}
                             </option>
                           ))}
                         </select>
@@ -562,7 +562,7 @@ export const OrderForm: React.FC = () => {
 
                         {/* Line Total */}
                         <div className="min-w-[4.5rem] text-right font-[family-name:var(--font-heading)] text-2xl font-bold text-primary">
-                          ${((currentItem ? currentItem.price : 0) * item.quantity).toFixed(2)}
+                          ৳{((currentItem ? currentItem.price : 0) * item.quantity).toLocaleString()}
                         </div>
 
                         {/* Remove button */}
@@ -617,11 +617,11 @@ export const OrderForm: React.FC = () => {
                         {li.quantity}x {li.menuItem?.name || "Custom Item"}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        ${li.menuItem?.price.toFixed(2)} each
+                        ৳{li.menuItem?.price} each
                       </p>
                     </div>
                     <span className="font-bold text-foreground">
-                      ${li.total.toFixed(2)}
+                      ৳{li.total.toLocaleString()}
                     </span>
                   </div>
                 ))}
@@ -631,29 +631,29 @@ export const OrderForm: React.FC = () => {
               <div className="mt-6 border-t-2 border-border/50 pt-4 space-y-2 text-base">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span className="font-bold text-foreground">${subtotal.toFixed(2)}</span>
+                  <span className="font-bold text-foreground">৳{subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>
                     Delivery Fee{" "}
                     {subtotal >= FREE_DELIVERY_THRESHOLD && (
-                      <span className="text-xs font-bold text-emerald-600">(FREE over $35)</span>
+                      <span className="text-xs font-bold text-emerald-600">(FREE over ৳999)</span>
                     )}
                   </span>
                   <span className="font-bold text-foreground">
-                    {delivery === 0 ? "FREE" : `$${delivery.toFixed(2)}`}
+                    {delivery === 0 ? "FREE" : `৳${delivery}`}
                   </span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Estimated Tax (8.25%)</span>
-                  <span className="font-bold text-foreground">${tax.toFixed(2)}</span>
+                  <span>VAT / Tax (5%)</span>
+                  <span className="font-bold text-foreground">৳{tax.toLocaleString()}</span>
                 </div>
                 <div className="flex items-baseline justify-between border-t-2 border-border/60 pt-3 text-primary">
                   <span className="font-[family-name:var(--font-heading)] text-2xl uppercase font-bold">
                     Total
                   </span>
                   <span className="font-[family-name:var(--font-heading)] text-4xl font-extrabold tracking-tight">
-                    ${total.toFixed(2)}
+                    ৳{total.toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -681,7 +681,7 @@ export const OrderForm: React.FC = () => {
                 100% Texas Beef • Griddled Hot Daily
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Free hand-cut fries included on all orders over $35!
+                Free hand-cut fries included on all orders over ৳999!
               </p>
             </div>
           </div>
