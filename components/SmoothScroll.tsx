@@ -13,7 +13,14 @@ export const SmoothScroll: React.FC = () => {
       autoRaf: true,
     });
 
+    if (typeof window !== "undefined") {
+      (window as any).__lenis = lenis;
+    }
+
     return () => {
+      if (typeof window !== "undefined") {
+        delete (window as any).__lenis;
+      }
       lenis.destroy();
     };
   }, []);

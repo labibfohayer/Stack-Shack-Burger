@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   motion,
   AnimatePresence,
@@ -42,6 +43,21 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isLightSection, setIsLightSection] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+
+  const handleNavClick = (href: string, e: React.MouseEvent) => {
+    setIsOpen(false);
+    if (href === "/" && pathname === "/") {
+      e.preventDefault();
+      if (typeof window !== "undefined") {
+        if ((window as any).__lenis) {
+          (window as any).__lenis.scrollTo(0);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    }
+  };
 
   const checkTheme = () => {
     const probeY = window.innerHeight * 0.05;
@@ -116,12 +132,13 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
       >
         <div className="mx-auto flex w-[var(--container)] items-center justify-between gap-[var(--gap)]">
           {/* Brand Logo */}
-          <a
-            href={brandHref}
+          <Link
+            href={brandHref || "/"}
+            onClick={(e) => handleNavClick(brandHref || "/", e)}
             className="min-w-0 whitespace-nowrap px-[0.1em] py-[0.05em] font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(2.25rem,4vw,3.75rem)] leading-[1] uppercase text-primary transition-transform duration-300 hover:scale-105 [-webkit-text-stroke:calc(var(--title-stroke,0em)*2.4)_var(--title-stroke-color,transparent)] [paint-order:stroke_fill]"
           >
             {brand}
-          </a>
+          </Link>
 
           {/* Nav Controls */}
           <div className="relative flex shrink-0 items-center gap-[clamp(0.4rem,0.6vw,0.75rem)]">
@@ -219,7 +236,7 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
                         {item.href.startsWith("/") ? (
                           <Link
                             href={item.href}
-                            onClick={() => setIsOpen(false)}
+                            onClick={(e) => handleNavClick(item.href, e)}
                             className="inline-block origin-left font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,2.4vw,2.4rem)] leading-[1] uppercase transition-transform duration-300 hover:scale-105 [overflow-wrap:anywhere]"
                           >
                             {item.name}
@@ -227,7 +244,7 @@ export const NavbarPillMenu: React.FC<NavbarPillMenuProps> = ({
                         ) : (
                           <a
                             href={item.href}
-                            onClick={() => setIsOpen(false)}
+                            onClick={(e) => handleNavClick(item.href, e)}
                             className="inline-block origin-left font-[family-name:var(--font-display,var(--font-heading))] text-[length:clamp(1.75rem,2.4vw,2.4rem)] leading-[1] uppercase transition-transform duration-300 hover:scale-105 [overflow-wrap:anywhere]"
                           >
                             {item.name}

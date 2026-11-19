@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   motion,
   useAnimate,
@@ -166,6 +167,21 @@ const FooterLinkItem: React.FC<{ text: string; href: string }> = ({
   text,
   href,
 }) => {
+  const pathname = usePathname();
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (href === "/" && pathname === "/") {
+      e.preventDefault();
+      if (typeof window !== "undefined") {
+        if ((window as any).__lenis) {
+          (window as any).__lenis.scrollTo(0);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    }
+  };
+
   const content = (
     <div className="relative overflow-hidden">
       <div className="transition-transform duration-300 group-hover:-translate-y-full">
@@ -185,7 +201,7 @@ const FooterLinkItem: React.FC<{ text: string; href: string }> = ({
 
   if (href.startsWith("/")) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} onClick={handleClick} className={className}>
         {content}
       </Link>
     );
