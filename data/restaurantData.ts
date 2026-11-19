@@ -255,7 +255,7 @@ export const restaurantData: RestaurantData = {
       { text: "Contact", href: "/contact" },
     ],
     copyright: "© 2026 Stack Shack, all rights reserved",
-    tagline: "Smashed to order in Gulshan. Est. 2024",
+    tagline: "SMASHED TO ORDER ON THE GRILL, EST. 2024",
     items: [
       {
         imageSrc: "/images/close-up-delicious-fast-food-meal-1600.webp",
