@@ -1,5 +1,7 @@
 # 🍔 Stack Shack - Pixel-Perfect Burger Restaurant Replica
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-stackshack.pages.dev-success?style=for-the-badge&logo=cloudflare&logoColor=white)](https://stackshack.pages.dev/)
+
 A faithful, reverse-engineered replica of the [Webild Burger Restaurant Template](https://www.webild.io/templates/burger-restaurant) ("Stack Shack").
 
 Built with **Next.js 15 (App Router)**, **Tailwind CSS**, **Framer Motion**, and **Lenis** smooth scrolling.
@@ -28,8 +30,11 @@ cd /home/labib-fohayer/.gemini/antigravity/scratch/burger-restaurant-replica
 # 2. Run the development server
 npm run dev
 
-# 3. Open in your browser
+# 3. Open in your browser (Local Development)
 http://localhost:3000
+
+# 🌐 Live Production Deployment
+https://stackshack.pages.dev/
 ```
 
 To build for production:
